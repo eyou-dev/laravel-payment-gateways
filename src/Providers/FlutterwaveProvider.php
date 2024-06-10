@@ -60,7 +60,7 @@ class FlutterwaveProvider extends AbstractProvider
 
     public function findTransaction(string $reference): TransactionData
     {
-        $response = $this->request('GET', "v3/transactions/$reference/verify");
+        $response = $this->request('GET', "v3/transactions/verify_by_reference", ['tx_ref' => $reference]);
 
         return $this->transactionDTO($response['data']);
     }
@@ -104,7 +104,7 @@ class FlutterwaveProvider extends AbstractProvider
             meta: $transaction['meta'] ?? null,
             amount: $transaction['amount'],
             currency: $transaction['currency'],
-            reference: $transaction['reference'],
+            reference: $transaction['tx_ref'],
             provider: $this->provider,
             status: $transaction['status'],
             date: Carbon::parse($transaction['created_at'])->toDateTimeString(),

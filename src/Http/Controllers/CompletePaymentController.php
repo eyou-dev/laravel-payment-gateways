@@ -35,9 +35,9 @@ class CompletePaymentController extends Controller
              * not contain the reference for the payment OR if the provider doesn't return
              * any reference for the transactions via the callback url.
              */
-            $paymentReference = $request->get('transaction_id')
-                ?? $sessionData->paymentReference
-                ?? $sessionData->sessionReference;
+            $paymentReference = $sessionData->paymentReference
+                ?? $sessionData->sessionReference
+                ?? $reference;
 
             $payment = $paymentProvider->confirmTransaction($paymentReference, $sessionData->closure);
 
